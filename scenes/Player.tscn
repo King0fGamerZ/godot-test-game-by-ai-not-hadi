@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://du2g430hqsqag"]
+
+[ext_resource type="Script" uid="uid://qyivfr8dael8" path="res://scripts/Player.gd" id="1_p0vlq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ckn6y"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_ckn6y"]
+size = Vector3(0.1, 0.1, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckn6y"]
+albedo_color = Color(0.33288068, 0.3328807, 0.3328806, 1)
+
+[node name="Player" type="CharacterBody3D" unique_id=1161885939]
+script = ExtResource("1_p0vlq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=383815518]
+shape = SubResource("CapsuleShape3D_ckn6y")
+
+[node name="Head" type="Node3D" parent="." unique_id=1750668868]
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=887345973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D" unique_id=561387381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+
+[node name="Gun" type="MeshInstance3D" parent="Head/Camera3D" unique_id=1427210257]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.75, -0.3)
+mesh = SubResource("BoxMesh_ckn6y")
+surface_material_override/0 = SubResource("StandardMaterial3D_ckn6y")
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="." unique_id=1835633029]

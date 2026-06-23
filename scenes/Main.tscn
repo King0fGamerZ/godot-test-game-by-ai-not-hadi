@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dqwk6yccexs1o"]
+
+[ext_resource type="PackedScene" uid="uid://du2g430hqsqag" path="res://scenes/Player.tscn" id="1_0bbpv"]
+[ext_resource type="Script" uid="uid://bc54q2qudjpcc" path="res://scripts/Spawner.gd" id="2_rarhs"]
+[ext_resource type="Script" uid="uid://djt5xufyns2b3" path="res://scripts/UI.gd" id="3_vcsgt"]
+
+[sub_resource type="Environment" id="Environment_fpnsr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ckn6y"]
+size = Vector3(60, 0.5, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ckn6y"]
+size = Vector3(60, 0.5, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fpnsr"]
+albedo_color = Color(0, 0.5019608, 0, 1)
+
+[node name="Main" type="Node3D" unique_id=1094565609]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1503793628]
+environment = SubResource("Environment_fpnsr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1953757170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, -45, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=903412197]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=847827377]
+shape = SubResource("BoxShape3D_ckn6y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1228063794]
+mesh = SubResource("BoxMesh_ckn6y")
+surface_material_override/0 = SubResource("StandardMaterial3D_fpnsr")
+
+[node name="Player" parent="." unique_id=1161885939 instance=ExtResource("1_0bbpv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Spawner" type="Node3D" parent="." unique_id=1707491005]
+script = ExtResource("2_rarhs")
+
+[node name="Timer" type="Timer" parent="Spawner" unique_id=457657402]
+wait_time = 1.5
+autostart = true
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=248874176]
+script = ExtResource("3_vcsgt")
+
+[node name="HUD" type="Control" parent="UI" unique_id=1627398313]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UI/HUD" unique_id=421490847]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Score: 0"
+
+[node name="HealthLabel" type="Label" parent="UI/HUD" unique_id=1632330630]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "HP: 100"
+
+[node name="Crosshair" type="Control" parent="UI/HUD" unique_id=203778711]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GameOverPanel" type="Panel" parent="UI" unique_id=662636422]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOverPanel" unique_id=2134934714]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FinalScoreLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=940137503]
+layout_mode = 2
+text = "Final Score: 0"
+
+[node name="RestartButton" type="Button" parent="UI/GameOverPanel/VBoxContainer" unique_id=1121402843]
+layout_mode = 2
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="UI/GameOverPanel/VBoxContainer" unique_id=1051009908]
+layout_mode = 2
+text = "Quit"

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cq7vbpj5ikeel"]
+
+[ext_resource type="Script" uid="uid://bpu8kc0hjcwe0" path="res://scripts/Enemy.gd" id="1_7p1mj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ckn6y"]
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ckn6y"]
+height = 1.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fpnsr"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fpnsr"]
+radius = 0.7
+
+[node name="Enemy" type="CharacterBody3D" unique_id=2018424600]
+script = ExtResource("1_7p1mj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1646745505]
+shape = SubResource("CapsuleShape3D_ckn6y")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=163827612]
+mesh = SubResource("CapsuleMesh_ckn6y")
+surface_material_override/0 = SubResource("StandardMaterial3D_fpnsr")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=88378492]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=237055423]
+shape = SubResource("CapsuleShape3D_fpnsr")
