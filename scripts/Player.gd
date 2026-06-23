@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 
 func _shoot() -> void:
 	can_shoot = false
-	var b := preload("res://scenes/Bullet.tscn").instantiate()
+	var b := preload("res://scenes/bullet.tscn").instantiate()
 	get_tree().current_scene.add_child(b)
 	b.global_position = muzzle.global_position
 	b.direction = -camera.global_transform.basis.z.normalized()

@@ -9,7 +9,7 @@ extends Node3D
 
 func _ready() -> void:
 	if enemy_scene == null:
-		enemy_scene = preload("res://scenes/Enemy.tscn")
+		enemy_scene = preload("res://scenes/enemy.tscn")
 	timer.wait_time = spawn_interval
 	timer.timeout.connect(_on_timer_timeout)
 	timer.start()
