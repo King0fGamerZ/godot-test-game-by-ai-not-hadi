@@ -1,5 +1,5 @@
 extends CanvasLayer
-# HUD + Game Over screen. Attach to a CanvasLayer in Main.tscn.
+# HUD + Game Over screen.
 
 @onready var score_label: Label = $HUD/ScoreLabel
 @onready var health_label: Label = $HUD/HealthLabel
@@ -10,23 +10,33 @@ extends CanvasLayer
 @onready var quit_button: Button = $GameOverPanel/VBoxContainer/QuitButton
 
 func _ready() -> void:
-	GameManager.health_changed.connect(_on_health_changed)
-	GameManager.score_changed.connect(_on_score_changed)
-	GameManager.game_over_signal.connect(_on_game_over)
-	restart_button.pressed.connect(_on_restart_pressed)
-	quit_button.pressed.connect(_on_quit_pressed)
-	game_over_panel.visible = false
+	if GameManager:
+		GameManager.health_changed.connect(_on_health_changed)
+		GameManager.score_changed.connect(_on_score_changed)
+		GameManager.game_over_signal.connect(_on_game_over)
+	
+	if restart_button:
+		restart_button.pressed.connect(_on_restart_pressed)
+	if quit_button:
+		quit_button.pressed.connect(_on_quit_pressed)
+	
+	if game_over_panel:
+		game_over_panel.visible = false
 
 func _on_health_changed(hp: int) -> void:
-	health_label.text = "HP: %d" % hp
+	if health_label:
+		health_label.text = "HP: %d" % hp
 
 func _on_score_changed(s: int) -> void:
-	score_label.text = "Score: %d" % s
+	if score_label:
+		score_label.text = "Score: %d" % s
 
 func _on_game_over() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	game_over_panel.visible = true
-	final_score_label.text = "Final Score: %d" % GameManager.score
+	if game_over_panel:
+		game_over_panel.visible = true
+	if final_score_label:
+		final_score_label.text = "Final Score: %d" % GameManager.score
 
 func _on_restart_pressed() -> void:
 	GameManager.reset()

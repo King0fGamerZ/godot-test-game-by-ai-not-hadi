@@ -1,10 +1,10 @@
 extends CharacterBody3D
 # Enemy: walks toward player, deals damage on contact, dies when shot enough.
-# Attach to a CharacterBody3D root in Enemy.tscn.
 
-@export var speed := 3.2
+@export var speed := 3.5
 @export var damage := 10
 @export var max_health := 50
+@export var gravity := 20.0
 
 var health := max_health
 var player: Node3D = null
@@ -19,14 +19,24 @@ func _ready() -> void:
 		hitbox.body_entered.connect(_on_hitbox_body_entered)
 
 func _physics_process(delta: float) -> void:
+	# Apply gravity
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		velocity.y = 0.0
+	
 	if player == null:
+		move_and_slide()
 		return
+		
 	var dir := (player.global_position - global_position)
 	dir.y = 0
-	if dir.length() > 0.01:
+	
+	if dir.length() > 0.1:
 		dir = dir.normalized()
 		velocity.x = dir.x * speed
 		velocity.z = dir.z * speed
+		
 		# Face the player (only Y rotation)
 		var look_target := global_position + dir
 		look_target.y = global_position.y
