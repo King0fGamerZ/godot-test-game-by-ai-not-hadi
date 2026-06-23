@@ -9,7 +9,7 @@ extends CharacterBody3D
 
 var health := max_health
 var can_shoot := true
-const GRAVITY := 12.0
+const GRAVITY := 9.8
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
